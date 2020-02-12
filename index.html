@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>I❤️MEME</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <section class="container header-wrapper flex align-center">
+            <div class="logo flex-1">
+                I❤️MEME
+            </div>
+            <nav id="mainMenu" class="main-menu-wrapper">
+                <ul class="main-menu clean-list flex align-center">
+                    <li>
+                        <a href="#" class="active">Gellery</a>
+                    </li>
+                    <li>
+                        <a href="#">Mems</a>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+
+                </ul>
+                <button class="toggle-menu-btn fa" onclick="toggleMenu()" alt="Open main menu"></button>
+                <div class="toggle-menu-screen screen" onclick="toggleMenu()" alt="toggle main menu"></div>
+            </nav>
+
+        </section>
+    </header>
+
+
+    <main>
+
+
+        <div class="second-panel container">
+
+            <div class="wrapper grid">
+
+
+                <div class="canvas-container">
+                    <canvas id="my-canvas" height="450" width="450" touchstart="startDraw(event)" onmousedown="startDraw(event)" touchmove="draw(event)" onmousemove="draw(event)" touchend="stopDraw(event)" onmouseup="stopDraw(event)" style="border: 1px solid black;"></canvas>
+                </div>
+                <img class="meme-controller" src="./images/image-001.jpg" />
+            </div>
+        </div>
+
+
+        <section class="pager main-pager container flex justify-center">
+            <ul class="media">
+                <li class="li-item facebook">
+                    <a class="face-link" href="#">
+                        <img class="facebook-img" src="images/f.png" />
+                    </a>
+                </li>
+
+                <li class="li-item twitter">
+                    <a href="#">
+                        <img class="twitter-img" src="images/twitter.png" />
+                    </a>
+                </li>
+
+                <li class="li-item be">
+                    <a href="#">
+                        <img class="be-img" src="images/be.png" />
+                    </a>
+                </li>
+
+                <li class="li-item basketball">
+                    <a href="#">
+                        <img class="basketball-img" src="images/basketball.png" />
+                    </a>
+                </li>
+            </ul>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        <section class="container">
+            <div class="logo">
+                Blogin
+                <span>.</span>
+            </div>
+            <small>© 2014 Blogin.com - All Rights Reserved - Find more free Templates at Pixelhint.com</small>
+        </section>
+
+
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            var mainMenu = document.getElementById('mainMenu');
+            console.log(mainMenu);
+            mainMenu.classList.toggle('open');
+        }
+    </script>
+</body>
+
+</html>
