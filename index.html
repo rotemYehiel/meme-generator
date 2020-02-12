@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body onload="onInit()">
 
     <header>
         <section class="container header-wrapper flex align-center">
@@ -38,22 +38,64 @@
 
 
     <main>
+        <!-- wrapper -->
+        <div class="second-panel container hide" id="gallery">
 
 
+            Search for image: <input id="search" type="text" name="fname">
+            <input type="button" onclick="onSearchClicked()" value="Submit">
+
+
+            <div class="gallery-grid ">
+
+                <div class="images">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+        </div>
         <div class="second-panel container">
 
-            <div class="wrapper grid">
+            <div class="wrapper">
 
 
                 <div class="canvas-container">
                     <canvas id="my-canvas" height="450" width="450" touchstart="startDraw(event)" onmousedown="startDraw(event)" touchmove="draw(event)" onmousemove="draw(event)" touchend="stopDraw(event)" onmouseup="stopDraw(event)" style="border: 1px solid black;"></canvas>
                 </div>
-                <img class="meme-controller" src="./images/image-001.jpg" />
+
+                <div class="memes-controller">
+                    Add text here: <input onkeyup="onAddText(event)" id="txt1" type="text">
+                    <button class="next-txt"></button>
+                    <button class="move-up"></button>
+                    <button class="move-down"></button>
+                    <button class="add-txt"></button>
+                    <button class="delete-txt"></button>
+                    <section class="text-editor">
+                        <button class="biger-size"></button>
+                        <button class="smaller-size"></button>
+                        <button class="aline-left"></button>
+                        <button class="aline-center"></button>
+                        <button class="aline-right"></button>
+
+                    </section>
+                    <!-- <input type="button" onclick="onAddTextClicked()" value="Add Text"> -->
+
+
+                </div>
+                <!-- <img class="canvas-img" src="meme-imgs/2.jpg" /> -->
+
             </div>
+
         </div>
 
 
-        <section class="pager main-pager container flex justify-center">
+        <!-- <section class="pager main-pager container flex justify-center">
             <ul class="media">
                 <li class="li-item facebook">
                     <a class="face-link" href="#">
@@ -80,7 +122,7 @@
                 </li>
             </ul>
 
-        </section>
+        </section> -->
 
     </main>
 
@@ -96,14 +138,9 @@
 
 
     </footer>
-
-    <script>
-        function toggleMenu() {
-            var mainMenu = document.getElementById('mainMenu');
-            console.log(mainMenu);
-            mainMenu.classList.toggle('open');
-        }
-    </script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/service.js"></script>
+    <script src="./js/main.js"></script>
 </body>
 
 </html>
