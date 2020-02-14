@@ -18,14 +18,11 @@
             </div>
             <nav id="mainMenu" class="main-menu-wrapper">
                 <ul class="main-menu clean-list flex align-center">
-                    <li>
-                        <a href="#" class="active">Gellery</a>
+                    <li onclick="onGoGallery(this)" class="active" id="on-gallery">Gellery
+                        <!-- <a href="#" class="active">Gellery</a> -->
                     </li>
-                    <li>
-                        <a href="#">Mems</a>
-                    </li>
-                    <li>
-                        <a href="#">About</a>
+                    <li onclick="onGoAbout(this)" id="on-about">About
+                        <!-- <a href="#">About</a> -->
                     </li>
 
                 </ul>
@@ -38,8 +35,41 @@
 
 
     <main>
+        <div class="second-panel container hide" id="canvas-panel">
+
+            <div class="wrapper">
+
+                <div class="canvas-container">
+                    <canvas id="my-canvas" height="450" width="450" touchstart="startDraw(event)" onmousedown="startDraw(event)" touchmove="draw(event)" onmousemove="draw(event)" touchend="stopDraw(event)" onmouseup="stopDraw(event)" style="border: 1px solid black;"></canvas>
+                    <!-- <div class="txt1-box"></div> -->
+                </div>
+
+                <div class="memes-controller">
+                    Add text here: <input onkeyup="onAddText(event)" id="txt" type="text">
+                    <section class="btns-panel">
+                        <button onclick="onCreateNewTxt(this.id)" class="control-btn" id="add-txt"></button>
+                        <button onclick="onDeliteClicked()" class="control-btn" id="delete-txt"></button>
+
+                        <button onclick="increaseFont(this.id)" class="control-btn" id="increase-font"></button>
+                        <button onclick="decreaseFont(this.id)" class="control-btn" id="decrease-font"></button>
+                        <button onclick="onGoNextLine()" class="switch-line control-btn" id="switch-line"></button>
+                        <button onclick="onAlignLeftClicked(this.id)" class="control-btn" id="align-left"></button>
+                        <button onclick="onAlignCenterClicked(this.id)" class="control-btn" id="align-center"></button>
+                        <button onclick="onAlignRightClicked(this.id)" class="control-btn" id="align-right"></button>
+
+
+                    </section>
+
+
+
+                </div>
+                <!-- <img class="canvas-img" src="meme-imgs/2.jpg" /> -->
+
+            </div>
+
+        </div>
         <!-- wrapper -->
-        <div class="second-panel container hide" id="gallery">
+        <div class="second-panel container" id="gallery">
 
 
             Search for image: <input id="search" type="text" name="fname">
@@ -60,39 +90,7 @@
 
 
         </div>
-        <div class="second-panel container">
 
-            <div class="wrapper">
-
-
-                <div class="canvas-container">
-                    <canvas id="my-canvas" height="450" width="450" touchstart="startDraw(event)" onmousedown="startDraw(event)" touchmove="draw(event)" onmousemove="draw(event)" touchend="stopDraw(event)" onmouseup="stopDraw(event)" style="border: 1px solid black;"></canvas>
-                </div>
-
-                <div class="memes-controller">
-                    Add text here: <input onkeyup="onAddText(event)" id="txt1" type="text">
-                    <button class="next-txt"></button>
-                    <button class="move-up"></button>
-                    <button class="move-down"></button>
-                    <button class="add-txt"></button>
-                    <button class="delete-txt"></button>
-                    <section class="text-editor">
-                        <button class="biger-size"></button>
-                        <button class="smaller-size"></button>
-                        <button class="aline-left"></button>
-                        <button class="aline-center"></button>
-                        <button class="aline-right"></button>
-
-                    </section>
-                    <!-- <input type="button" onclick="onAddTextClicked()" value="Add Text"> -->
-
-
-                </div>
-                <!-- <img class="canvas-img" src="meme-imgs/2.jpg" /> -->
-
-            </div>
-
-        </div>
 
 
         <!-- <section class="pager main-pager container flex justify-center">
@@ -130,16 +128,15 @@
 
         <section class="container">
             <div class="logo">
-                Blogin
-                <span>.</span>
+                I❤️MEME
             </div>
-            <small>© 2014 Blogin.com - All Rights Reserved - Find more free Templates at Pixelhint.com</small>
+            <small>© 2020 - All Rights Reserved - Rotem Yehiel</small>
         </section>
 
 
     </footer>
     <script src="./js/utils.js"></script>
-    <script src="./js/service.js"></script>
+    <script src="./js/meme-service.js"></script>
     <script src="./js/main.js"></script>
 </body>
 
