@@ -1,20 +1,19 @@
-// var gKeepDrawing = false;
-// var gCurrTxt = '';
 var gCanvas;
 var gCtx;
-// var gCurrShape = 'triangle'
+
 
 function onInit() {
     // drawImg();
-    renderImages();
+    renderImages(getImagesForDisplay());
     gCanvas = document.getElementById('my-canvas')
     gCtx = gCanvas.getContext('2d')
 }
 
 
-function renderImages() {
-    var images = getImagesForDisplay();
-    var strHTMLs = images.map(function(image) {
+function renderImages(imgs) {
+
+    // var images = getImagesForDisplay();
+    var strHTMLs = imgs.map(function(image) {
         return `
         <img onclick="onImageClicked(${image.id})" class="img-${image.id} images" src="${image.url}" />`
     });
@@ -36,11 +35,13 @@ function renderTextBox() {
     return document.querySelector(`#txt-box${boxId}`)
 }
 
-// function onSearchClicked() {
-//     var searchInput = document.querySelector('#search').value;
-//     getFilter(searchInput);
+function onSearchClicked() {
+    var searchInput = document.querySelector('#search').value;
+    // console.log(searchInput)
+    var imgs = getFilter(searchInput);
+    renderImages(imgs);
 
-// }
+}
 
 
 
@@ -187,11 +188,6 @@ function drawImage(img, x, y) {
 
 function drawText(lines) {
 
-    // console.log(boxes)
-
-    // var posX;
-    // var posY;
-
     lines.forEach(line => {
         var xPos;
         var yPos;
@@ -216,6 +212,7 @@ function drawText(lines) {
         gCtx.textAlign = `${line.align}`
         gCtx.fillText(line.txt, xPos, yPos)
         gCtx.strokeText(line.txt, xPos, yPos)
+        ctx.moveTo(xPos, yPos);
 
 
     });

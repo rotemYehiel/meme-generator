@@ -9,7 +9,7 @@ var gMeme = {
     selectedLineIdx: 0,
     selectedFillColor: 'wite',
     selectedLineColor: 'black',
-    lines: [{ txt: 'I never eat Falafel', size: 50, font: 'IMPACT', align: 'center', lineColor: 'black', fillColor: 'wite', idLine: 0, box: 'txt-box1' }]
+    lines: [{ txt: 'I never eat Falafel', size: 50, font: 'IMPACT', align: 'left', lineColor: 'black', fillColor: 'wite', idLine: 0, box: 'txt-box1' }]
 }
 var gtxtBoxs = [];
 
@@ -154,6 +154,13 @@ function getBoxId() {
     return gMeme.selectedLineIdx;
 }
 
+function getFilter(searchKey) {
+    var searchImgs = gImages.filter(function(image) {
+        return image.keywords === searchKey;
+    });
+    return searchImgs;
+
+}
 
 /////////////////create functins///////////////////
 function createBox(elTxtBox) {
@@ -169,7 +176,7 @@ function createBox(elTxtBox) {
 
 }
 
-function creatLine(newTxt, currLine, size = 50, font = 'IMPACT', align = 'center', lineColor = 'black', fillColor = 'white', box = 'txt-box1') {
+function creatLine(newTxt, currLine, size = 50, font = 'IMPACT', align = 'left', lineColor = 'black', fillColor = 'white', box = 'txt-box1') {
     // console.log('curr: ', gMeme.lines)
     var lines = gMeme.lines;
     var line = {
