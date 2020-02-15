@@ -19,10 +19,8 @@
             <nav id="mainMenu" class="main-menu-wrapper">
                 <ul class="main-menu clean-list flex align-center">
                     <li onclick="onGoGallery(this)" class="active" id="on-gallery">Gellery
-                        <!-- <a href="#" class="active">Gellery</a> -->
                     </li>
                     <li onclick="onGoAbout(this)" id="on-about">About
-                        <!-- <a href="#">About</a> -->
                     </li>
 
                 </ul>
@@ -40,30 +38,59 @@
             <div class="wrapper">
 
                 <div class="canvas-container">
-                    <canvas id="my-canvas" height="450" width="450" touchstart="startDraw(event)" onmousedown="startDraw(event)" touchmove="draw(event)" onmousemove="draw(event)" touchend="stopDraw(event)" onmouseup="stopDraw(event)" style="border: 1px solid black;"></canvas>
-                    <!-- <div class="txt1-box"></div> -->
+
+                    <div class="txt-box-container">
+
+                    </div>
+                    <canvas id="my-canvas" height="450" width="450" style="border: 1px solid black;"></canvas>
+                    <!-- <div class="txt-box"></div> -->
                 </div>
 
                 <div class="memes-controller">
-                    Add text here: <input onkeyup="onAddText(event)" id="txt" type="text">
+                    <section class="txt-area">
+                        Add text here: <input class="control-btn" onkeyup="onAddText(event)" id="txt" type="text">
+                    </section>
                     <section class="btns-panel">
+                        <button onclick="onGoNextLine()" class="switch-line control-btn" id="switch-line"></button>
                         <button onclick="onCreateNewTxt(this.id)" class="control-btn" id="add-txt"></button>
                         <button onclick="onDeliteClicked()" class="control-btn" id="delete-txt"></button>
-
+                    </section>
+                    <section class="txt-edit-sec">
                         <button onclick="increaseFont(this.id)" class="control-btn" id="increase-font"></button>
                         <button onclick="decreaseFont(this.id)" class="control-btn" id="decrease-font"></button>
-                        <button onclick="onGoNextLine()" class="switch-line control-btn" id="switch-line"></button>
                         <button onclick="onAlignLeftClicked(this.id)" class="control-btn" id="align-left"></button>
                         <button onclick="onAlignCenterClicked(this.id)" class="control-btn" id="align-center"></button>
                         <button onclick="onAlignRightClicked(this.id)" class="control-btn" id="align-right"></button>
-
+                        <button onclick="onPalleteClicked()" class="control-btn" id="pallete-btn"></button>
+                        <select onchange="onChageFont(value)" class="control-btn" id="font-select">
+                                <option value="select-font">Select Font...</option>
+                                <option value="impact">IMPACT</option>
+                                <option value="latoregular">Latoregular</option>
+                                <option value="arial">Arial</option>
+                              </select>
 
                     </section>
+
+                    <!-- <form id="action-sec" action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
+                            <input name="img" id="imgData" type="hidden" />
+                            <button class="btn control-btn" type="submit">Shere</button>
+                            <a id="share-btn" href="#" class="btn-share" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
+                            <div class="share-container"></div>
+                        </form> -->
+
+
+
+                    <div class="colors-modal hide">
+                        <button onclick="onCloseModalClicked()" class="close-pallete-btn control-btn">X</button>
+                        <label class="fill-input">Choose your fill text color</label>
+                        <input onchange="onFillColor()" class="fill-input" type="color" id="fill-color" name="f-color" value="#ff0000">
+                        <label class="line-input">Choose your line text color</label>
+                        <input onchange="onLineColor()" class="line-input" type="color" id="line-color" name="l-color" value="#ff0000">
+                    </div>
 
 
 
                 </div>
-                <!-- <img class="canvas-img" src="meme-imgs/2.jpg" /> -->
 
             </div>
 
@@ -86,44 +113,44 @@
 
         </div>
 
-
-
-
         </div>
 
-
-
-        <!-- <section class="pager main-pager container flex justify-center">
-            <ul class="media">
-                <li class="li-item facebook">
-                    <a class="face-link" href="#">
-                        <img class="facebook-img" src="images/f.png" />
-                    </a>
-                </li>
-
-                <li class="li-item twitter">
-                    <a href="#">
-                        <img class="twitter-img" src="images/twitter.png" />
-                    </a>
-                </li>
-
-                <li class="li-item be">
-                    <a href="#">
-                        <img class="be-img" src="images/be.png" />
-                    </a>
-                </li>
-
-                <li class="li-item basketball">
-                    <a href="#">
-                        <img class="basketball-img" src="images/basketball.png" />
-                    </a>
-                </li>
-            </ul>
-
-        </section> -->
-
     </main>
+    <!-- about me -->
+    <section class="about" id="me" style="padding: 0px;">
 
+        <div class="about-me">
+            <img class="img-me" src="./img-about/me.jpg" alt="">
+            <div class="personal-details">
+                <h4>Rotem Yehiel</h4>
+                <p class="text-muted">I'm a Hit collage graduate, with Bsc.System Manegment degree. <br>i study in Coding Academy.</p>
+                <section class="media">
+                    <ul class="media-list">
+                        <li class="li-item facebook">
+                            <a class="face-link" href="https://www.facebook.com/rotem.yehi">
+                                <img class="facebook-img" src="/buttons-img/facebook-logo_copy_2.png" />
+                            </a>
+                        </li>
+
+                        <li class="li-item linkedin">
+                            <a href="https://il.linkedin.com/in/rotem-yehiel-143608163">
+                                <img class="linkedin-img" src="/buttons-img/linkedin-logo.png" />
+                            </a>
+                        </li>
+
+                        <li class="li-item github">
+                            <a href="https://github.com/rotemYehiel/meme-generator.git">
+                                <img class="github-img" src="buttons-img/github-logo.png" />
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </section>
+            </div>
+        </div>
+
+    </section>
     <footer>
 
         <section class="container">

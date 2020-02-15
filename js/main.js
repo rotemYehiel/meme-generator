@@ -23,11 +23,18 @@ function renderImages() {
 
 }
 
-// function renderTextBox() {
-//     var boxId = 'txt1'
-//     var htmlBox = ` <div class="${boxId}-box"></div>`;
-//     document.querySelector('.canvas-container').innerHTML = htmlBox;
-// }
+function renderCanvas() {
+    gCanvas = document.getElementById('my-canvas');
+    gCtx = gCanvas.getContext('2d');
+}
+
+function renderTextBox() {
+    var boxId = getBoxId();
+    var htmlDiv = `<div class="txt-box${boxId} txt-box" id="txt-box${boxId}"></div>`;
+    document.querySelector('.txt-box-container').innerHTML = htmlDiv;
+    updateTxtBox(`txt-box${boxId}`);
+    return document.querySelector(`#txt-box${boxId}`)
+}
 
 // function onSearchClicked() {
 //     var searchInput = document.querySelector('#search').value;
@@ -38,18 +45,23 @@ function renderImages() {
 
 
 /////////////////////////////buttons clicked/////////////////////////////
+function onChageFont(value) {
+    updateFont(value);
+}
+
 function increaseFont(idEl) {
-    updateFont(idEl);
+    updateFontSize(idEl);
 }
 
 function decreaseFont(idEl) {
-    updateFont(idEl);
+    updateFontSize(idEl);
 }
 
 function onImageClicked(imageId) {
     document.querySelector('#gallery').classList.add('hide');
     document.querySelector('#canvas-panel').classList.remove('hide');
     document.querySelector('#on-gallery').classList.remove('active');
+    document.querySelector('.about').classList.add('hide');
     drawImg(imageId);
 }
 
@@ -71,6 +83,7 @@ function onGoNextLine() {
 function onDeliteClicked() {
     var id = getImageIdForDisplay();
     drawImg(id);
+
 }
 
 function onAlignLeftClicked(elId) {
@@ -89,9 +102,7 @@ function onGoAbout(elBtn) {
     if (elBtn.classList.contains('active')) return;
     elBtn.classList.add('active');
     document.querySelector('#on-gallery').classList.remove('active');
-    // document.querySelector('#canvas-panel').classList.remove('hide');
     document.querySelector('#gallery').classList.add('hide');
-    /////make about page
 }
 
 function onGoGallery(elBtn) {
@@ -102,6 +113,32 @@ function onGoGallery(elBtn) {
     document.querySelector('#canvas-panel').classList.add('hide');
 }
 
+function onFillColor() {
+    var color = document.querySelector('#fill-color').value;
+    updateFillColor(color);
+}
+
+function onLineColor() {
+    var color = document.querySelector('#line-color').value;
+    updateLineColor(color);
+}
+
+function onPalleteClicked() {
+    openOrCloseModal();
+}
+
+function onCloseModalClicked() {
+    openOrCloseModal();
+}
+
+function openOrCloseModal() {
+    var elModal = document.querySelector('.colors-modal');
+    if (elModal.classList.contains('hide')) {
+        elModal.classList.remove('hide')
+    } else {
+        elModal.classList.add('hide')
+    }
+}
 
 /////////////////////////////canvas place//////////////////////////////////
 
@@ -115,17 +152,17 @@ function drawImg(id) {
     }
 }
 
-function onAddText(ev) {
+function onAddText() {
 
-    // renderTextBox();
+    renderCanvas();
+
     var addText = document.querySelector('#txt').value;
     var lines = getLines(addText);
     var linesToDraw = lines;
+    var elTxtBox = renderTextBox();
 
-    // var txtToDraw = lines[0].txt;
-    // var txtSize=lines[0].size;
-    // var txtAlign=lines[0].align;
-    // var txtColore=lines[0].color;
+    getBoxs(elTxtBox);
+
 
     gCanvas = document.getElementById('my-canvas')
     gCtx = gCanvas.getContext('2d')
@@ -149,42 +186,39 @@ function drawImage(img, x, y) {
 
 
 function drawText(lines) {
-    // console.log(lines)
-    var posX;
-    var posY;
-    lines.forEach(line => {
 
-        if (line.idLine === 0) {
-            posX = 100;
-            posY = 100;
-        } else if (line.idLine === 1) {
-            posX = 100;
-            posY = 400;
+    // console.log(boxes)
+
+    // var posX;
+    // var posY;
+
+    lines.forEach(line => {
+        var xPos;
+        var yPos;
+        if (line.box === 'txt-box0') {
+            var box = getBox('txt-box0');
+            xPos = box.xStart + 20;
+            yPos = box.yStart + (box.yEnd - box.yStart) / 2;
+        } else if (line.box === 'txt-box1') {
+            var box = getBox('txt-box1');
+            xPos = box.xStart + 20;
+            yPos = box.yStart + (box.yEnd - box.yStart) / 2
+
         } else {
-            posX = 100;
-            posY = 250;
+            var box = getBox('txt-box2');
+            xPos = box.xStart + 20;
+            yPos = box.yStart + (box.yEnd - box.yStart) / 2
         }
-        gCtx.strokeStyle = `${line.color}`;
-        gCtx.fillStyle = `white`;
-        gCtx.font = `${line.size}px IMPACT`
+
+        gCtx.strokeStyle = `${line.lineColor}`;
+        gCtx.fillStyle = `${line.fillColor}`;
+        gCtx.font = `${line.size}px ${line.font}`
         gCtx.textAlign = `${line.align}`
-        gCtx.fillText(line.txt, posX, posY)
-        gCtx.strokeText(line.txt, posX, posY)
+        gCtx.fillText(line.txt, xPos, yPos)
+        gCtx.strokeText(line.txt, xPos, yPos)
 
 
     });
     // gCtx.lineWidth = '2'
 
-}
-
-function getFillColor() {
-    var color = document.querySelector('#fill-color').value;
-    // console.log(color.value)
-    return color;
-}
-
-function getLineColor() {
-    var color = document.querySelector('#line-color').value;
-    // console.log(color.value)
-    return color;
 }

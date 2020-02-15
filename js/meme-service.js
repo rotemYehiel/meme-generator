@@ -7,9 +7,11 @@ var gImages = _createImages();
 var gMeme = {
     selectedImgId: 2,
     selectedLineIdx: 0,
-    lines: [{ txt: 'I never eat Falafel', size: 50, align: 'center', color: 'black', idLine: 0 }]
+    selectedFillColor: 'wite',
+    selectedLineColor: 'black',
+    lines: [{ txt: 'I never eat Falafel', size: 50, font: 'IMPACT', align: 'center', lineColor: 'black', fillColor: 'wite', idLine: 0, box: 'txt-box1' }]
 }
-
+var gtxtBoxs = [];
 
 
 
@@ -24,14 +26,37 @@ function switchLine() {
     }
 }
 
+function updateFont(font) {
+    var currLine = gMeme.selectedLineIdx;
+    gMeme.lines[currLine].font = font;
+
+}
+
+function updateTxtBox(currBox) {
+    var currLine = gMeme.selectedLineIdx;
+    gMeme.lines[currLine].box = currBox;
+    // console.log(gMeme)
+
+}
+
 function upateLineOnAdd() {
     gMeme.selectedLineIdx = gMeme.lines.length - 1;
     gMeme.selectedLineIdx++;
 }
 
+function updateLineColor(color) {
+    gMeme.selectedLineColor = color;
+    // console.log(gMeme.selectedLineColor)
+    gMeme.lines[gMeme.selectedLineIdx].lineColor = color;
+    // console.log(gMeme)
+}
 
+function updateFillColor(color) {
+    gMeme.selectedFillColor = color;
+    gMeme.lines[gMeme.selectedLineIdx].fillColor = color;
+}
 
-function updateFont(idEl) {
+function updateFontSize(idEl) {
     // debugger
     // console.log('befor: ', gMeme)
     var lines = gMeme.lines;
@@ -78,6 +103,26 @@ function updateAlign(selectedAlign) {
 
 
 /////////////////get functions/////////////////
+function getBox(id) {
+    var nowBox = gtxtBoxs.filter(function(box) {
+        return box.boxId === id;
+    })
+    return nowBox[0];
+
+}
+
+function getBoxs(elTxtBox) {
+    var boxId = elTxtBox.id;
+    var isExistBox = gtxtBoxs.filter(function(box) {
+        return box.boxId === boxId;
+    })
+    if (isExistBox[0]) return gtxtBoxs;
+    var newBox = createBox(elTxtBox);
+    gtxtBoxs.push(newBox);
+    return gtxtBoxs;
+
+}
+
 function getImageIdForDisplay() {
     return gMeme.selectedImgId;
 }
@@ -96,7 +141,7 @@ function getLines(newTxt) {
         line = creatLine(newTxt, currLine);
         lines[0] = line;
     } else if (lines[currLine]) {
-        line = creatLine(newTxt, currLine, lines[currLine].size, lines[currLine].align, lines[currLine].color);
+        line = creatLine(newTxt, currLine, lines[currLine].size, lines[currLine].font, lines[currLine].align, lines[currLine].lineColor, lines[currLine].fillColor, lines[currLine].box);
         lines[line.idLine] = line;
     } else {
         line = creatLine(newTxt, currLine);
@@ -105,18 +150,36 @@ function getLines(newTxt) {
     return lines;
 }
 
-
+function getBoxId() {
+    return gMeme.selectedLineIdx;
+}
 
 
 /////////////////create functins///////////////////
-function creatLine(newTxt, currLine, size = 50, align = 'center', color = 'black') {
-    console.log('curr: ', gMeme.lines)
+function createBox(elTxtBox) {
+
+    var box = {
+        boxId: elTxtBox.id,
+        xStart: elTxtBox.offsetLeft,
+        yStart: elTxtBox.offsetTop,
+        xEnd: elTxtBox.offsetLeft + elTxtBox.offsetWidth,
+        yEnd: elTxtBox.offsetTop + elTxtBox.offsetHeight
+    }
+    return box;
+
+}
+
+function creatLine(newTxt, currLine, size = 50, font = 'IMPACT', align = 'center', lineColor = 'black', fillColor = 'white', box = 'txt-box1') {
+    // console.log('curr: ', gMeme.lines)
     var lines = gMeme.lines;
     var line = {
         txt: newTxt,
         size: size,
+        font: font,
         align: align,
-        color: color,
+        lineColor: lineColor,
+        fillColor: fillColor,
+        box: box,
         idLine: currLine
     }
 
