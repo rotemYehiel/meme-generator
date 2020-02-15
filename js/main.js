@@ -104,6 +104,9 @@ function onGoAbout(elBtn) {
     elBtn.classList.add('active');
     document.querySelector('#on-gallery').classList.remove('active');
     document.querySelector('#gallery').classList.add('hide');
+    document.querySelector('#canvas-panel').classList.add('hide');
+    document.querySelector('.about').classList.remove('hide');
+    document.querySelector('main').style.background = 'white';
 }
 
 function onGoGallery(elBtn) {
@@ -212,7 +215,6 @@ function drawText(lines) {
         gCtx.textAlign = `${line.align}`
         gCtx.fillText(line.txt, xPos, yPos)
         gCtx.strokeText(line.txt, xPos, yPos)
-        ctx.moveTo(xPos, yPos);
 
 
     });
