@@ -48,14 +48,20 @@ function onSearchClicked() {
 /////////////////////////////buttons clicked/////////////////////////////
 function onChageFont(value) {
     updateFont(value);
+    onAddText();
+
+
 }
 
 function increaseFont(idEl) {
     updateFontSize(idEl);
+    onAddText();
+
 }
 
 function decreaseFont(idEl) {
     updateFontSize(idEl);
+    onAddText();
 }
 
 function onImageClicked(imageId) {
@@ -74,6 +80,7 @@ function toggleMenu() {
 
 function onCreateNewTxt() {
     upateLineOnAdd();
+    onAddText();
 
 }
 
@@ -83,20 +90,25 @@ function onGoNextLine() {
 
 function onDeliteClicked() {
     var id = getImageIdForDisplay();
+    onAddText();
     drawImg(id);
 
 }
 
 function onAlignLeftClicked(elId) {
     updateAlign(elId);
+    onAddText();
 }
 
 function onAlignCenterClicked(elId) {
     updateAlign(elId);
+    onAddText();
+
 }
 
 function onAlignRightClicked(elId) {
     updateAlign(elId);
+    onAddText();
 }
 
 function onGoAbout(elBtn) {
@@ -120,11 +132,13 @@ function onGoGallery(elBtn) {
 function onFillColor() {
     var color = document.querySelector('#fill-color').value;
     updateFillColor(color);
+    onAddText();
 }
 
 function onLineColor() {
     var color = document.querySelector('#line-color').value;
     updateLineColor(color);
+    onAddText();
 }
 
 function onPalleteClicked() {

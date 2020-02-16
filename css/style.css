@@ -9,8 +9,8 @@
         cursor: pointer;
         border-radius: 10px;
         background-color: white;
-        width: 45px;
-        height: 45px;
+        width: fit-content;
+        /* height: 45px; */
         background-repeat: no-repeat;
         background-size: 70%;
         background-position-x: center;
@@ -44,61 +44,61 @@
     /* } */
     
     #add-txt {
-        background-image: url(/buttons-img/add.png);
+        /* background-image: url(/buttons-img/add.png); */
         grid-row: 1 / 2;
         grid-column: 1 / 2;
     }
     
     #delete-txt {
-        background-image: url(/buttons-img/trash.png);
+        /* background-image: url(/buttons-img/trash.png); */
         grid-row: 1 / 2;
         grid-column: 2 / 3;
         /* grid-area: delete-txt; */
     }
     
     #increase-font {
-        background-image: url(/buttons-img/increase-font.png);
+        /* background-image: url(/buttons-img/increase-font.png); */
         grid-row: 1 / 2;
         grid-column: 1 / 2;
         /* grid-area: biger-size; */
     }
     
     #decrease-font {
-        background-image: url(/buttons-img/decrease-font.png);
+        /* background-image: url(/buttons-img/decrease-font.png); */
         grid-row: 1 / 2;
         grid-column: 2 / 3;
         /* grid-area: smaller-size; */
     }
     
     #align-left {
-        background-image: url(/buttons-img/align-to-left.png);
+        /* background-image: url(/buttons-img/align-to-left.png); */
         grid-row: 1 / 2;
         grid-column: 3 / 4;
         /* grid-area: aline-left; */
     }
     
     #align-center {
-        background-image: url(/buttons-img/center-text-alignment.png);
+        /* background-image: url(/buttons-img/center-text-alignment.png); */
         grid-row: 1 / 2;
         grid-column: 4 / 5;
         /* grid-area: aline-center; */
     }
     
     #align-right {
-        background-image: url(/buttons-img/align-to-right.png);
+        /* background-image: url(/buttons-img/align-to-right.png); */
         grid-row: 1 / 2;
         grid-column: 5 / 6;
         /* grid-area: aline-right; */
     }
     
     #switch-line {
-        background-image: url(/buttons-img/up-and-down-opposite-double-arrows-side-by-side.png);
+        /* background-image: url(/buttons-img/up-and-down-opposite-double-arrows-side-by-side.png); */
         grid-row: 3 / 4;
         grid-column: 2 / 3;
     }
     
     #pallete-btn {
-        background-image: url(/buttons-img/palette.png);
+        /* background-image: url(/buttons-img/palette.png); */
         grid-row: 2 /3;
         grid-column: 5 / 6;
     }
@@ -512,7 +512,7 @@
         margin-left: 5vh;
     }
     
-    .about-me img {
+    .img-me {
         width: 30%;
         /* height: 225px; */
         border: 7px solid white;

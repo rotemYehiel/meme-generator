@@ -50,17 +50,35 @@
                         Add text here: <input class="txt-input" onkeyup="onAddText(event)" id="txt" type="text">
                     </section>
                     <section class="btns-panel">
-                        <button onclick="onGoNextLine()" class="switch-line control-btn" id="switch-line"></button>
-                        <button onclick="onCreateNewTxt(this.id)" class="control-btn" id="add-txt"></button>
-                        <button onclick="onDeliteClicked()" class="control-btn" id="delete-txt"></button>
+                        <button onclick="onGoNextLine()" class="switch-line control-btn" id="switch-line">
+                        <img class="switch-line-btn" src="buttons-img/up-and-down-opposite-double-arrows-side-by-side.png"/>
+                        </button>
+                        <button onclick="onCreateNewTxt(this.id)" class="control-btn" id="add-txt">
+                            <img class="add-txt-btn" src="buttons-img/add.png"/>
+                        </button>
+                        <button onclick="onDeliteClicked()" class="control-btn" id="delete-txt">
+                            <img class="delete-txt-btn" src="buttons-img/trash.png"/>
+                        </button>
                     </section>
                     <section class="txt-edit-sec">
-                        <button onclick="increaseFont(this.id)" class="control-btn" id="increase-font"></button>
-                        <button onclick="decreaseFont(this.id)" class="control-btn" id="decrease-font"></button>
-                        <button onclick="onAlignLeftClicked(this.id)" class="control-btn" id="align-left"></button>
-                        <button onclick="onAlignCenterClicked(this.id)" class="control-btn" id="align-center"></button>
-                        <button onclick="onAlignRightClicked(this.id)" class="control-btn" id="align-right"></button>
-                        <button onclick="onPalleteClicked()" class="control-btn" id="pallete-btn"></button>
+                        <button onclick="increaseFont(this.id)" class="control-btn" id="increase-font">
+                            <img class="increase-font-btn" src="buttons-img/increase-font.png"/>
+                        </button>
+                        <button onclick="decreaseFont(this.id)" class="control-btn" id="decrease-font">
+                            <img class="decrease-font-btn" src="buttons-img/decrease-font.png"/>
+                        </button>
+                        <button onclick="onAlignLeftClicked(this.id)" class="control-btn" id="align-left">
+                            <img class="align-left-btn" src="buttons-img/align-to-left.png"/>
+                        </button>
+                        <button onclick="onAlignCenterClicked(this.id)" class="control-btn" id="align-center">
+                            <img class="align-center-btn" src="buttons-img/center-text-alignment.png"/>
+                        </button>
+                        <button onclick="onAlignRightClicked(this.id)" class="control-btn" id="align-right">
+                            <img class="align-right-btn" src="buttons-img/align-to-right.png"/>
+                        </button>
+                        <button onclick="onPalleteClicked()" class="control-btn" id="pallete-btn">
+                            <img class="pallete-btn-btn" src="buttons-img/palette.png"/>
+                        </button>
                         <select onchange="onChageFont(value)" class="control-btn" id="font-select">
                                 <option value="select-font">Select Font...</option>
                                 <option value="impact">IMPACT</option>
@@ -127,13 +145,13 @@
                     <ul class="media-list">
                         <li class="li-item facebook">
                             <a class="face-link" href="https://www.facebook.com/rotem.yehi">
-                                <img class="facebook-img" src="/buttons-img/facebook-logo_copy_2.png" />
+                                <img class="facebook-img" src="buttons-img/facebook-logo_copy_2.png" />
                             </a>
                         </li>
 
                         <li class="li-item linkedin">
                             <a href="https://il.linkedin.com/in/rotem-yehiel-143608163">
-                                <img class="linkedin-img" src="/buttons-img/linkedin-logo.png" />
+                                <img class="linkedin-img" src="buttons-img/linkedin-logo.png" />
                             </a>
                         </li>
 

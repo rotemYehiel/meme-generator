@@ -9,7 +9,16 @@ var gMeme = {
     selectedLineIdx: 0,
     selectedFillColor: 'wite',
     selectedLineColor: 'black',
-    lines: [{ txt: 'I never eat Falafel', size: 50, font: 'IMPACT', align: 'left', lineColor: 'black', fillColor: 'wite', idLine: 0, box: 'txt-box1' }]
+    lines: [{
+        txt: 'I never eat Falafel',
+        size: 50,
+        font: 'IMPACT',
+        align: 'left',
+        lineColor: 'black',
+        fillColor: 'wite',
+        idLine: 0,
+        box: 'txt-box1'
+    }]
 }
 var gtxtBoxs = [];
 
@@ -58,7 +67,8 @@ function updateFillColor(color) {
 
 function updateFontSize(idEl) {
     // debugger
-    // console.log('befor: ', gMeme)
+    console.log(idEl)
+        // console.log('befor: ', gMeme)
     var lines = gMeme.lines;
     switch (idEl) {
         case 'increase-font':
