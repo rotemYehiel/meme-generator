@@ -49,9 +49,16 @@
                     <section class="txt-area">
                         Add text here: <input class="txt-input" onkeyup="onAddText(event)" id="txt" type="text">
                     </section>
-                    <section class="btns-panel">
+                    <!-- <section class="btns-panel"> -->
+                    <section class="txt-edit-sec">
+                        <button onclick="onGoUp()" class="go-up control-btn" id="go-up">
+                            <img class="go-up-btn" src="buttons-img/up.png"/>
+                        </button>
+                        <button onclick="onGoDown()" class="go-down control-btn" id="go-down">
+                                <img src="buttons-img/down.png"/>
+                            </button>
                         <button onclick="onGoNextLine()" class="switch-line control-btn" id="switch-line">
-                        <img class="switch-line-btn" src="buttons-img/up-and-down-opposite-double-arrows-side-by-side.png"/>
+                            <img src="buttons-img/up-and-down-opposite-double-arrows-side-by-side.png"/>
                         </button>
                         <button onclick="onCreateNewTxt(this.id)" class="control-btn" id="add-txt">
                             <img class="add-txt-btn" src="buttons-img/add.png"/>
@@ -59,8 +66,7 @@
                         <button onclick="onDeliteClicked()" class="control-btn" id="delete-txt">
                             <img class="delete-txt-btn" src="buttons-img/trash.png"/>
                         </button>
-                    </section>
-                    <section class="txt-edit-sec">
+                        <!-- </section> -->
                         <button onclick="increaseFont(this.id)" class="control-btn" id="increase-font">
                             <img class="increase-font-btn" src="buttons-img/increase-font.png"/>
                         </button>

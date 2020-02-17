@@ -17,12 +17,10 @@ var gMeme = {
         lineColor: 'black',
         fillColor: 'wite',
         idLine: 0,
-        box: 'txt-box1'
+        x: 0,
+        y: 0
     }]
 }
-var gtxtBoxs = [];
-
-
 
 
 
@@ -41,12 +39,7 @@ function updateFont(font) {
 
 }
 
-function updateTxtBox(currBox) {
-    var currLine = gMeme.selectedLineIdx;
-    gMeme.lines[currLine].box = currBox;
-    // console.log(gMeme)
 
-}
 
 function upateLineOnAdd() {
     gMeme.selectedLineIdx = gMeme.lines.length - 1;
@@ -67,8 +60,8 @@ function updateFillColor(color) {
 
 function updateFontSize(idEl) {
     // debugger
-    console.log(idEl)
-        // console.log('befor: ', gMeme)
+
+    // console.log('befor: ', gMeme)
     var lines = gMeme.lines;
     switch (idEl) {
         case 'increase-font':
@@ -109,29 +102,27 @@ function updateAlign(selectedAlign) {
     gMeme.lines[lineId].align = align;
 }
 
+function addLinePlace(id, xPos, yPos) {
+    gMeme.lines[id].x = xPos;
+    gMeme.lines[id].y = yPos;
+}
 
+function upateLinePlace(dirc) {
+    // debugger
+    var id = gMeme.selectedLineIdx;
+    var LineHeigth = gMeme.lines[id].y;
+
+    if (dirc === 'up') {
+        LineHeigth -= 1
+    } else {
+        LineHeigth += 1
+    }
+    gMeme.lines[id].y = LineHeigth;
+
+}
 
 
 /////////////////get functions/////////////////
-function getBox(id) {
-    var nowBox = gtxtBoxs.filter(function(box) {
-        return box.boxId === id;
-    })
-    return nowBox[0];
-
-}
-
-function getBoxs(elTxtBox) {
-    var boxId = elTxtBox.id;
-    var isExistBox = gtxtBoxs.filter(function(box) {
-        return box.boxId === boxId;
-    })
-    if (isExistBox[0]) return gtxtBoxs;
-    var newBox = createBox(elTxtBox);
-    gtxtBoxs.push(newBox);
-    return gtxtBoxs;
-
-}
 
 function getImageIdForDisplay() {
     return gMeme.selectedImgId;
@@ -141,7 +132,7 @@ function getImagesForDisplay() {
     return gImages;
 }
 
-function getLines(newTxt) {
+function getLines(newTxt, canvasWidth, canvasHeigth) {
 
     var line;
     var lines = gMeme.lines;
@@ -150,14 +141,36 @@ function getLines(newTxt) {
     if (lines[0].txt === 'I never eat Falafel') {
         line = creatLine(newTxt, currLine);
         lines[0] = line;
+
     } else if (lines[currLine]) {
-        line = creatLine(newTxt, currLine, lines[currLine].size, lines[currLine].font, lines[currLine].align, lines[currLine].lineColor, lines[currLine].fillColor, lines[currLine].box);
+        line = creatLine(newTxt, currLine, lines[currLine].size, lines[currLine].font, lines[currLine].align, lines[currLine].lineColor, lines[currLine].fillColor, lines[currLine].x, lines[currLine].y);
         lines[line.idLine] = line;
     } else {
         line = creatLine(newTxt, currLine);
         lines.push(line);
     }
+    createTxtPos(canvasWidth, canvasHeigth);
     return lines;
+}
+
+function createTxtPos(canvasWidth, canvasHeigth) {
+    var id = gMeme.selectedLineIdx;
+    var xPos;
+    var yPos;
+    if (id === 0) {
+        xPos = (canvasWidth) / 2; ////the middle
+        yPos = 100;
+
+    } else if (id === 1) {
+        xPos = (canvasWidth) / 2;
+        yPos = canvasHeigth - 100 + 50;
+    } else {
+        xPos = (canvasWidth) / 2;
+        yPos = 25 + (canvasHeigth) / 2;
+    }
+    gMeme.lines[id].x = xPos;
+    gMeme.lines[id].y = yPos;
+
 }
 
 function getBoxId() {
@@ -166,28 +179,24 @@ function getBoxId() {
 
 function getFilter(searchKey) {
     var searchImgs = gImages.filter(function(image) {
-        return image.keywords === searchKey;
+        var keys = image.keywords;
+        var isIn = keys.filter(function(word) {
+            return word === searchKey
+        })
+        return isIn[0] === searchKey;
     });
     return searchImgs;
+}
 
+function getLinesToDraw() {
+    return gMeme.lines;
 }
 
 /////////////////create functins///////////////////
-function createBox(elTxtBox) {
 
-    var box = {
-        boxId: elTxtBox.id,
-        xStart: elTxtBox.offsetLeft,
-        yStart: elTxtBox.offsetTop,
-        xEnd: elTxtBox.offsetLeft + elTxtBox.offsetWidth,
-        yEnd: elTxtBox.offsetTop + elTxtBox.offsetHeight
-    }
-    return box;
-
-}
 
 function creatLine(newTxt, currLine, size = 50, font = 'IMPACT', align = 'left', lineColor = 'black', fillColor = 'white', box = 'txt-box1') {
-    // console.log('curr: ', gMeme.lines)
+
     var lines = gMeme.lines;
     var line = {
         txt: newTxt,
@@ -196,7 +205,6 @@ function creatLine(newTxt, currLine, size = 50, font = 'IMPACT', align = 'left',
         align: align,
         lineColor: lineColor,
         fillColor: fillColor,
-        box: box,
         idLine: currLine
     }
 
@@ -210,7 +218,7 @@ function _createImages() {
     var images = loadFromStorage(IMAGES);
     if (images) return images;
 
-    var images = ['finger trump', 'kissing doges', 'sleeping together', 'sleepy cat', 'baby win', 'explain', 'baby shoked', 'tell me more', 'evil baby', 'obama laughing', 'players kissing', 'what would you do', 'dicaprio cheers', 'mad man', 'explain angry man', 'embarrassed', 'putin v', 'baz lightyear']
+    var images = ['finger trump', 'kissing dogs', 'sleeping together', 'sleepy cat', 'baby win', 'explain', 'baby shoked', 'tell me more', 'evil baby', 'obama laughing', 'players kissing', 'what would you do', 'dicaprio cheers', 'mad man', 'explain angry man', 'embarrassed', 'putin v', 'baz lightyear']
         .map(imagName => _createImage(imagName))
     saveToStorage(IMAGES, images);
 
@@ -222,6 +230,7 @@ function _createImage(imagName) {
     return {
         id: gID,
         keywords: [imagName],
-        url: `meme-imgs/${gID}.jpg`
+        url: `
+                        meme - imgs / $ { gID }.jpg `
     }
 }
