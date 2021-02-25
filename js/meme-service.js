@@ -217,11 +217,10 @@ function creatLine(newTxt, currLine, size = 50, font = 'IMPACT', align = 'left',
 function _createImages() {
     var images = loadFromStorage(IMAGES);
     if (images) return images;
-
     var images = ['finger trump', 'kissing dogs', 'sleeping together', 'sleepy cat', 'baby win', 'explain', 'baby shoked', 'tell me more', 'evil baby', 'obama laughing', 'players kissing', 'what would you do', 'dicaprio cheers', 'mad man', 'explain angry man', 'embarrassed', 'putin v', 'baz lightyear']
         .map(imagName => _createImage(imagName))
     saveToStorage(IMAGES, images);
-
+    console.log("images:", images)
     return images;
 }
 
@@ -230,6 +229,6 @@ function _createImage(imagName) {
     return {
         id: gID,
         keywords: [imagName],
-        url: `../meme-imgs/${gID}.jpg `
+        url: `../meme-imgs/${gID}.jpg`
     }
 }
