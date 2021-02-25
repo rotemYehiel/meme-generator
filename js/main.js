@@ -12,7 +12,6 @@ function onInit() {
 
 
 function renderImages(imgs = getImagesForDisplay()) {
-
     var strHTMLs = imgs.map(function(image) {
         return `
         <img onclick="onImageClicked(${image.id})" class="img-${image.id} images" src="${image.url}" />`

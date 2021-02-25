@@ -421,7 +421,8 @@
     
     header {
         /* background: url("../images/header-bg.gif"); */
-        background-color: lightpink;
+        /* background-color: lightpink; */
+        background-color: rgb(183, 182, 255);
         height: 66px;
         color: black;
         font-family: latobold, sans-serif;
@@ -796,9 +797,8 @@
             flex-direction: column;
             text-align: center;
             align-content: center;
-            margin-top: 5vh;
-            margin-bottom: 5vh;
-            margin-left: 5vh;
+            margin: auto;
+            padding: 10vw;
         }
         .about-me img {
             width: 30%;

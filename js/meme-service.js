@@ -195,7 +195,7 @@ function getLinesToDraw() {
 /////////////////create functins///////////////////
 
 
-function creatLine(newTxt, currLine, size = 50, font = 'IMPACT', align = 'left', lineColor = 'black', fillColor = 'white', box = 'txt-box1') {
+function creatLine(newTxt, currLine, size = 50, font = 'IMPACT', align = 'left', lineColor = 'black', fillColor = 'white') {
 
     var lines = gMeme.lines;
     var line = {
@@ -230,7 +230,6 @@ function _createImage(imagName) {
     return {
         id: gID,
         keywords: [imagName],
-        url: `
-                        meme - imgs / $ { gID }.jpg `
+        url: `meme-imgs/${gID}.jpg `
     }
 }
