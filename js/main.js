@@ -12,9 +12,9 @@ function onInit() {
 
 
 function renderImages(imgs = getImagesForDisplay()) {
-    var strHTMLs = imgs.map(function(image) {
+    var strHTMLs = imgs.map(function (image) {
         return `
-        <img onclick="onImageClicked(${image.id})" class="img-${image.id} images" src="${image.url}" />`
+        <img onclick="onImageClicked(${image.id})" class="img-${image.id} images" src=${image.url} />`
     });
     var elImagesGrid = document.querySelector('.gallery-grid');
     elImagesGrid.innerHTML = strHTMLs.join('');
@@ -60,7 +60,7 @@ function onGoDown() {
     var lines = getLinesToDraw();
     // onAddText();
     drawText(lines)
-        // console.log('im here!')
+    // console.log('im here!')
 }
 
 function onChageFont(value) {
@@ -264,8 +264,8 @@ function drawRect(x, y, txt, fSize, tAlign) {
     }
     gCtx.strokeStyle = `black`;
     gCtx.stroke()
-        // gCtx.fillStyle = `${getFillColor()}`;
-        // gCtx.fillRect(x, y, getRandomInt(250), getRandomInt(250))
+    // gCtx.fillStyle = `${getFillColor()}`;
+    // gCtx.fillRect(x, y, getRandomInt(250), getRandomInt(250))
 }
 
 ///in align-left: 
