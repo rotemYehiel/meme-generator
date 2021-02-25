@@ -178,9 +178,9 @@ function getBoxId() {
 }
 
 function getFilter(searchKey) {
-    var searchImgs = gImages.filter(function(image) {
+    var searchImgs = gImages.filter(function (image) {
         var keys = image.keywords;
-        var isIn = keys.filter(function(word) {
+        var isIn = keys.filter(function (word) {
             return word === searchKey
         })
         return isIn[0] === searchKey;
@@ -230,6 +230,6 @@ function _createImage(imagName) {
     return {
         id: gID,
         keywords: [imagName],
-        url: `meme-imgs/${gID}.jpg `
+        url: `../meme-imgs/${gID}.jpg `
     }
 }
