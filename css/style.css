@@ -421,8 +421,7 @@
     
     header {
         /* background: url("../images/header-bg.gif"); */
-        /* background-color: lightpink; */
-        background-color: rgb(183, 182, 255);
+        background-color: lightpink;
         height: 66px;
         color: black;
         font-family: latobold, sans-serif;

@@ -178,13 +178,11 @@ function getBoxId() {
 }
 
 function getFilter(searchKey) {
-    var searchImgs = gImages.filter(function (image) {
-        var keys = image.keywords;
-        var isIn = keys.filter(function (word) {
-            return word === searchKey
-        })
-        return isIn[0] === searchKey;
-    });
+    var searchImgs = gImages.filter((image) => {
+        const arrOfKeyWords = image.keywords;
+        const isExist = arrOfKeyWords.filter(keyword => keyword.includes(searchKey))
+        return (isExist.length) ? image : '';
+    })
     return searchImgs;
 }
 

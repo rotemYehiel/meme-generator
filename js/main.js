@@ -34,17 +34,16 @@ function renderTextBox() {
     return document.querySelector(`#txt-box${boxId}`)
 }
 
-
-
-
 /////////////////////////////buttons clicked/////////////////////////////
-function onSearchClicked() {
-    var searchInput = document.querySelector('#search').value;
-    // console.log(searchInput)
-    var imgs = getFilter(searchInput);
-    // console.log(imgs)
+
+const onSearchImage = () => {
+    const searchInput = document.querySelector('#search').value;
+    const imgs = getFilter(searchInput);
     renderImages(imgs);
 }
+const searchInputEl = document.querySelector('#search');
+searchInputEl.addEventListener('input', onSearchImage);
+
 
 function onGoUp() {
     upateLinePlace('up');
