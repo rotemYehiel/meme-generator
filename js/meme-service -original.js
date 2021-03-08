@@ -9,59 +9,22 @@ var gMeme = {
     selectedLineIdx: 0,
     selectedFillColor: 'wite',
     selectedLineColor: 'black',
-    lines: []
+    lines: [{
+        txt: 'I never eat Falafel',
+        size: 50,
+        font: 'IMPACT',
+        align: 'left',
+        lineColor: 'black',
+        fillColor: 'wite',
+        idLine: 0,
+        x: 0,
+        y: 0
+    }]
 }
+
+
+
 /////////////////update model functions/////////
-
-// new func************************
-
-const wirtText = (gCtx, text, xPos, yPos, align, canvasWidth, canvasHeight) => {
-    // console.log("xPos:", xPos, "yPos:", yPos, "align:", align)
-    if (align === 'center') xPos = canvasWidth / 2;
-    if (align === 'right') xPos = canvasWidth - 20;
-    gCtx.textAlign = `${align}`
-    gCtx.fillText(text, xPos, yPos)
-    gCtx.strokeText(text, xPos, yPos)
-}
-
-const createNewLine = (textToAdd, canvasH) => {
-    // console.log("textToAdd:", textToAdd)
-    var lines = gMeme.lines;
-    if (!lines.length) {
-        const currIdx = 0;
-        gMeme.selectedLineIdx = currIdx;
-        var newLine = creatLine(textToAdd, currIdx)
-        newLine = createTxtPos(newLine)
-        lines.push(newLine);
-    } else {
-        const currIdx = gMeme.selectedLineIdx;
-        const currLine = gMeme.lines.filter((line) => line.idLine === currIdx);
-        if (currLine.length > 0) {
-            console.log("update text in line:", currLine)
-            gMeme.lines[currIdx].txt = textToAdd;
-        } else {
-            console.log("create new line")
-            const currIdx = gMeme.selectedLineIdx;
-            var newLine = creatLine(textToAdd, currIdx);
-            newLine = createTxtPos(newLine, 0, 0, canvasH);
-            lines.push(newLine);
-        }
-    }
-    console.log("lines:", gMeme.lines)
-
-}
-function updateFont(font) {
-    gMeme.lines[gMeme.selectedLineIdx].font = font;
-}
-
-const addNewLine = () => {
-    const newLineIdx = (gMeme.lines.length - 1) + 1;
-    gMeme.selectedLineIdx = newLineIdx;
-    console.log("gmeme:", gMeme)
-}
-// ******************************
-
-
 function switchLine() {
     if (gMeme.selectedLineIdx + 1 === gMeme.lines.length) {
         gMeme.selectedLineIdx = 0;
@@ -70,14 +33,18 @@ function switchLine() {
     }
 }
 
+function updateFont(font) {
+    var currLine = gMeme.selectedLineIdx;
+    gMeme.lines[currLine].font = font;
+
+}
 
 
 
-
-// function upateCurrLineOnAdd() {
-//     gMeme.selectedLineIdx = gMeme.lines.length - 1;
-//     gMeme.selectedLineIdx++;
-// }
+function upateLineOnAdd() {
+    gMeme.selectedLineIdx = gMeme.lines.length - 1;
+    gMeme.selectedLineIdx++;
+}
 
 function updateLineColor(color) {
     gMeme.selectedLineColor = color;
@@ -92,18 +59,23 @@ function updateFillColor(color) {
 }
 
 function updateFontSize(idEl) {
+    // debugger
 
+    // console.log('befor: ', gMeme)
     var lines = gMeme.lines;
     switch (idEl) {
         case 'increase-font':
             var idLine = gMeme.selectedLineIdx;
-            var newSize = lines[idLine].size + 10;
-            gMeme.lines[idLine].size = newSize
+            var size = lines[idLine].size;
+            size += 10;
+            gMeme.lines[idLine].size = size
+
             break;
         case 'decrease-font':
             var idLine = gMeme.selectedLineIdx;
-            var newSize = lines[idLine].size - 10;
-            gMeme.lines[idLine].size = newSize
+            var size = lines[idLine].size;
+            size -= 10;
+            gMeme.lines[idLine].size = size
             break;
     }
     // console.log('after: ', gMeme)
@@ -115,19 +87,19 @@ function updateImage(id) {
 
 function updateAlign(selectedAlign) {
     var lineId = gMeme.selectedLineIdx;
-    var newAlign;
+    var align = gMeme.lines[lineId].align;
     switch (selectedAlign) {
         case 'align-left':
-            newAlign = 'left'
+            align = 'left';
             break;
         case 'align-center':
-            newAlign = 'center';
+            align = 'center';
             break;
         case 'align-right':
-            newAlign = 'right';
+            align = 'right';
             break;
     }
-    gMeme.lines[lineId].align = newAlign;
+    gMeme.lines[lineId].align = align;
 }
 
 function addLinePlace(id, xPos, yPos) {
@@ -160,22 +132,51 @@ function getImagesForDisplay() {
     return gImages;
 }
 
-const getLines = () => {
-    return gMeme.lines;
+function getLines(newTxt, canvasWidth, canvasHeigth) {
+
+    var line;
+    var lines = gMeme.lines;
+    var currLine = gMeme.selectedLineIdx;
+
+    if (lines[0].txt === 'I never eat Falafel') {
+        line = creatLine(newTxt, currLine);
+        lines[0] = line;
+
+    } else if (lines[currLine]) {
+        line = creatLine(newTxt, currLine, lines[currLine].size, lines[currLine].font, lines[currLine].align, lines[currLine].lineColor, lines[currLine].fillColor, lines[currLine].x, lines[currLine].y);
+        lines[line.idLine] = line;
+    } else {
+        line = creatLine(newTxt, currLine);
+        lines.push(line);
+    }
+    createTxtPos(canvasWidth, canvasHeigth);
+    return lines;
 }
 
-function createTxtPos(line, x = 0, y = 0, canvasH) {
-    const space = 20; ///dont forget to add this to the right when you add the text/box
-    const fontSize = line.size;
-    line.x = space + x;
-    if (line.idLine === 1) {
-        line.y = canvasH - fontSize;
-    } else if (line.idLine > 1) {
-        line.y = canvasH / 2;
-    } else {
-        line.y = space + fontSize;//50px is the font size+space
-    }
-    return line;
+function createTxtPos(canvasWidth, canvasHeigth) {
+    var id = gMeme.selectedLineIdx;
+    const space = 25;
+    const fontSize = 30;
+    gMeme.lines[id].x = space;
+    gMeme.lines[id].y = space + fontSize;//30px is the font size+space
+
+    // 
+    // var id = gMeme.selectedLineIdx;
+    // var xPos;
+    // var yPos;
+    // if (id === 0) {
+    //     xPos = (canvasWidth) / 2; ////the middle
+    //     yPos = 100;
+
+    // } else if (id === 1) {
+    //     xPos = (canvasWidth) / 2;
+    //     yPos = canvasHeigth - 100 + 50;
+    // } else {
+    //     xPos = (canvasWidth) / 2;
+    //     yPos = 25 + (canvasHeigth) / 2;
+    // }
+    // gMeme.lines[id].x = xPos;
+    // gMeme.lines[id].y = yPos;
 
 }
 
@@ -200,6 +201,8 @@ function getLinesToDraw() {
 
 
 function creatLine(newTxt, currLine, size = 50, font = 'IMPACT', align = 'left', lineColor = 'black', fillColor = 'white') {
+
+    var lines = gMeme.lines;
     var line = {
         txt: newTxt,
         size: size,
@@ -209,6 +212,8 @@ function creatLine(newTxt, currLine, size = 50, font = 'IMPACT', align = 'left',
         fillColor: fillColor,
         idLine: currLine
     }
+
+
     return line;
 }
 

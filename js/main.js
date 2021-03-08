@@ -34,7 +34,7 @@ function renderTextBox() {
     return document.querySelector(`#txt-box${boxId}`)
 }
 
-/////////////////////////////buttons clicked/////////////////////////////
+/////////////////////////////events/////////////////////////////
 
 const onSearchImage = () => {
     const searchInput = document.querySelector('#search').value;
@@ -51,15 +51,9 @@ function onGoUp() {
 }
 
 function onGoDown() {
-    // debugger
-    renderCanvas();
     upateLinePlace('down');
-    var id = getImageIdForDisplay();
-    // drawImg(id);
-    var lines = getLinesToDraw();
-    // onAddText();
-    drawText(lines)
-    // console.log('im here!')
+    onAddText();
+
 }
 
 function onChageFont(value) {
@@ -77,72 +71,21 @@ function decreaseFont(idEl) {
     updateFontSize(idEl);
     onAddText();
 }
-
-function onImageClicked(imageId) {
-    document.querySelector('#gallery').classList.add('hide');
-    document.querySelector('#canvas-panel').classList.remove('hide');
-    document.querySelector('#on-gallery').classList.remove('active');
-    document.querySelector('.about').classList.add('hide');
-    drawImg(imageId);
-}
-
-function toggleMenu() {
-    var mainMenu = document.getElementById('mainMenu');
-    console.log(mainMenu);
-    mainMenu.classList.toggle('open');
-}
-
-function onCreateNewTxt() {
-    upateLineOnAdd();
-    onAddText();
-
-}
-
-function onGoNextLine() {
-    switchLine();
-}
-
-function onDeliteClicked() {
-    var id = getImageIdForDisplay();
-    onAddText();
-    drawImg(id);
-
-}
-
-function onAlignLeftClicked(elId) {
-    updateAlign(elId);
-    onAddText();
-}
-
 function onAlignCenterClicked(elId) {
     updateAlign(elId);
     onAddText();
-
 }
-
 function onAlignRightClicked(elId) {
     updateAlign(elId);
     onAddText();
 }
-
-function onGoAbout(elBtn) {
-    if (elBtn.classList.contains('active')) return;
-    elBtn.classList.add('active');
-    document.querySelector('#on-gallery').classList.remove('active');
-    document.querySelector('#gallery').classList.add('hide');
-    document.querySelector('#canvas-panel').classList.add('hide');
-    document.querySelector('.about').classList.remove('hide');
-    document.querySelector('main').style.background = 'white';
+function onAlignLeftClicked(elId) {
+    updateAlign(elId);
+    onAddText();
 }
-
-function onGoGallery(elBtn) {
-    if (elBtn.classList.contains('active')) return;
-    elBtn.classList.add('active');
-    document.querySelector('#on-about').classList.remove('active');
-    document.querySelector('#gallery').classList.remove('hide');
-    document.querySelector('#canvas-panel').classList.add('hide');
+function onPalleteClicked() {
+    openOrCloseModal();
 }
-
 function onFillColor() {
     var color = document.querySelector('#fill-color').value;
     updateFillColor(color);
@@ -154,10 +97,68 @@ function onLineColor() {
     updateLineColor(color);
     onAddText();
 }
-
-function onPalleteClicked() {
-    openOrCloseModal();
+function onImageClicked(imageId) {
+    document.querySelector('#gallery').classList.add('hide');
+    document.querySelector('#canvas-panel').classList.remove('hide');
+    document.querySelector('#on-gallery').classList.remove('active');
+    document.querySelector('.about').classList.add('hide');
+    drawImg(imageId);
 }
+function onDeliteClicked() {
+    var id = getImageIdForDisplay();
+    clearInputVal();
+    drawImg(id);
+}
+
+const clearInputVal = () => {
+    document.body.querySelector('.txt-input').value = null;
+}
+// function toggleMenu() {
+//     var mainMenu = document.getElementById('mainMenu');
+//     mainMenu.classList.toggle('open');
+// }
+
+function onAddNewLine() {
+    clearInputVal();
+    const id = addNewLine();
+    // upateCurrLineOnAdd();
+    // onAddText(id);
+
+}
+
+// function onGoNextLine() {
+//     switchLine();
+// }
+
+
+
+
+
+
+
+
+
+// function onGoAbout(elBtn) {
+//     if (elBtn.classList.contains('active')) return;
+//     elBtn.classList.add('active');
+//     document.querySelector('#on-gallery').classList.remove('active');
+//     document.querySelector('#gallery').classList.add('hide');
+//     document.querySelector('#canvas-panel').classList.add('hide');
+//     document.querySelector('.about').classList.remove('hide');
+//     document.querySelector('main').style.background = 'white';
+// }
+
+// function onGoGallery(elBtn) {
+//     if (elBtn.classList.contains('active')) return;
+//     elBtn.classList.add('active');
+//     document.querySelector('#on-about').classList.remove('active');
+//     document.querySelector('#gallery').classList.remove('hide');
+//     document.querySelector('#canvas-panel').classList.add('hide');
+// }
+
+
+
+
 
 function onCloseModalClicked() {
     openOrCloseModal();
@@ -191,9 +192,10 @@ function onAddText() {
     var canvasW = document.getElementById('my-canvas').offsetWidth;
     var canvasH = document.getElementById('my-canvas').offsetHeight;
 
-    var addText = document.querySelector('#txt').value;
-    var lines = getLines(addText, canvasW, canvasH);
-    var linesToDraw = lines;
+    var textToAdd = document.querySelector('#txt').value;
+    createNewLine(textToAdd, canvasH)
+    const lines = getLines();
+    // console.log(lines)
 
     gCanvas = document.getElementById('my-canvas')
     gCtx = gCanvas.getContext('2d')
@@ -203,7 +205,7 @@ function onAddText() {
     img.src = `meme-imgs/${imgIdToDraw}.jpg`;
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
-        drawText(linesToDraw);
+        drawText(lines, gCanvas.width, gCanvas.height);
     }
 }
 
@@ -211,35 +213,68 @@ function drawImage(img, x, y) {
     gCtx.drawImage(img, x, y);
 }
 
-function drawText(lines) {
-
-    // debugger
+function drawText(lines, canvasWidth, canvasHeight) {
     lines.forEach(line => {
         var xPos = line.x;
         var yPos = line.y;
-        // var elCanvas = document.getElementById('my-canvas')
-        // if (line.idLine === 0) {
-        //     xPos = (elCanvas.offsetWidth) / 2; ////the middle
-        //     yPos = 100;
+        // const rectWidth = document.getElementById('my-canvas').width - 30
+        // drawRect(xPos, yPos, line.txt, line.size, line.align);
 
-        // } else if (line.idLine === 1) {
-        //     xPos = (elCanvas.offsetWidth) / 2;
-        //     yPos = elCanvas.offsetHeight - 100 + 50;
-        // } else {
-        //     xPos = (elCanvas.offsetWidth) / 2;
-        //     yPos = 25 + (elCanvas.offsetHeight) / 2;
+        // hello im rotem fullstack developer
 
-        // }
-        drawRect(xPos, yPos, line.txt, line.size, line.align);
-        addLinePlace(line.idLine, xPos, yPos);
+        // console.log("xPos:", xPos, " yPos:", yPos, "line.idLine:", line.idLine)
+        // addLinePlace(line.idLine, xPos, yPos);
 
         gCtx.strokeStyle = `${line.lineColor}`;
         gCtx.fillStyle = `${line.fillColor}`;
-        gCtx.font = `${line.size}px ${line.font}`
-        gCtx.textAlign = `${line.align}`
-        gCtx.fillText(line.txt, xPos, yPos)
-        gCtx.strokeText(line.txt, xPos, yPos)
+        gCtx.font = `${line.size}px ${line.font}`;
+        const textWidth = gCtx.measureText(line.txt).width;
+        // console.log("textWidth:", textWidth);
+        if (!loadFromStorage('idx1')) saveToStorage('idx1', 0)
+        if (!loadFromStorage('idx2')) saveToStorage('idx2', 0)
+        if (textWidth >= canvasWidth - 30) {
+            if (loadFromStorage('idx1') === 0) saveToStorage('idx1', line.txt.length - 1)
+            if (textWidth >= (canvasWidth - 30) * 2) {
+                if (loadFromStorage('idx2') === 0) saveToStorage('idx2', line.txt.length - 1)
+                line.txt = line.txt.substring(0, loadFromStorage('idx2'))
+                alert("text is too long...")
+            } else {
+                removeFromStorage('idx2')
+            }
+            const idx = loadFromStorage('idx1');
+            const a = line.txt.slice(0, idx)
+            const b = line.txt.slice(idx, line.txt.length)
+            wirtText(gCtx, a, xPos, yPos, line.align, canvasWidth, canvasHeight)
+            wirtText(gCtx, b, xPos, yPos + 50, line.align, canvasWidth, canvasHeight)
+        } else {
+            removeFromStorage('idx1')
+            removeFromStorage('idx2')
+            wirtText(gCtx, line.txt, xPos, yPos, line.align, canvasWidth, canvasHeight)
+        }
+        // console.log("gCtx:", gCtx)
 
+
+
+
+        //     wirtText(gCtx, b, xPos, yPos + 50, line.align)
+        // if (!loadFromStorage('idx')) saveToStorage('idx', 0)
+        // if (!loadFromStorage('idx2')) saveToStorage('idx2', 0)
+        // if (textWidth >= canvasWidth - 30) {
+        //     if (loadFromStorage('idx') === 0) {
+        //         saveToStorage('idx', line.txt.length - 1)
+        //     }
+        //     if (textWidth >= (canvasWidth - 30) * 2) {
+        //         if (loadFromStorage('idx2') === 0) saveToStorage('idx2', line.txt.length - 1)
+        //         line.txt = line.txt.substring(0, loadFromStorage('idx2'))
+        //     }
+        //     const idx = loadFromStorage('idx');
+        //     const a = line.txt.slice(0, idx)
+        //     const b = line.txt.slice(idx, line.txt.length)
+        //     wirtText(gCtx, a, xPos, yPos, line.align)
+        //     wirtText(gCtx, b, xPos, yPos + 50, line.align)
+        // } else {
+        //     wirtText(gCtx, line.txt, xPos, yPos, line.align)
+        // }
 
     });
     // gCtx.lineWidth = '2'
@@ -248,8 +283,11 @@ function drawText(lines) {
 
 function drawRect(x, y, txt, fSize, tAlign) {
     var boxWidth = gCtx.measureText(txt).width
+    if (!boxWidth) return
+    // console.log("boxWidth:", boxWidth)
     gCtx.beginPath();
     // console.log('ARE U HERE?', tAlign)
+    const space = 20;
     switch (tAlign) {
         case 'left':
             gCtx.rect(x - 20, y + 10, boxWidth + 40, -fSize - 10);
